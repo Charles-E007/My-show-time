@@ -4,14 +4,16 @@ import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import session from 'express-session';
 import passport from 'passport';
-import MongoStore from 'connect-mongo'; // 1. On réactive le store MongoDB
+import MongoStore from 'connect-mongo';
 import flash from 'connect-flash';
-import * as hbs from 'hbs'; // Importation propre de hbs pour TypeScript
+
+// On utilise le require classique ici pour éviter les caprices de TypeScript au runtime
+const hbs = require('hbs');
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // Activation des CORS (très utile pour la production)
+  // Activation des CORS
   app.enableCors();
 
   // Configuration des dossiers statiques et des vues
@@ -20,40 +22,40 @@ async function bootstrap() {
   app.setBaseViewsDir(join(process.cwd(), 'views'));
   app.setViewEngine('hbs');
 
-  // Enregistrement des helpers Handlebars
+  // Enregistrement du helper (plus besoin de re-déclarer "const hbs" ici)
   hbs.registerHelper('eq', (a, b) => a === b);
 
-  // 2. Gestion des Sessions persistantes via MongoDB Atlas
+  // Gestion des Sessions persistantes via MongoDB Atlas
   app.use(
     session({
-      secret: process.env.SESSION_SECRET || 'secret-key-showtime', // Utilise une variable d'environnement ou une clé par défaut
+      secret: process.env.SESSION_SECRET || 'secret-key-showtime',
       resave: false,
       saveUninitialized: false,
       store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI, // Utilise la variable d'environnement connectée à Atlas !
+        mongoUrl: process.env.MONGO_URI!, // Le "!" indique à TS que la variable sera bien là
         collectionName: 'sessions',
-        ttl: 60 * 60 * 24, // Durée de vie d'un jour (en secondes)
+        ttl: 60 * 60 * 24, // 1 jour
       }),
       cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // true en production (HTTPS requis)
-        maxAge: 1000 * 60 * 60 * 24, // 1 jour (en millisecondes)
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 1000 * 60 * 60 * 24,
       },
     }),
   );
 
-  // Configuration de Flash messages et Passport
+  // Configuration de Flash et Passport
   app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session());
 
-  // Middleware global pour passer l'utilisateur connecté aux vues HBS
+  // Middleware pour passer l'utilisateur connecté aux vues HBS
   app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
   });
 
-  // Gestion dynamique du Port exigé par Vercel
+  // Gestion dynamique du Port pour Vercel
   const port = process.env.PORT || 3000;
   await app.listen(port);
 }
