@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+
+    <div class="px-4 md:px-8 min-h-screen flex flex-col items-center justify-center bg-[url('/img/fond1.jpg')] bg-cover bg-center"  style="background-image: url('/img/fond1.jpg')";>
+        <div class="max-w-md w-full">
+            <div class="p-6 rounded-lg bg-white border border-slate-300 shadow-xs md:p-6 z-50">
+                <h1 class="text-slate-900 text-center text-2xl font-bold">Update Profile</h1>
+
+
+                <!-- submit sa declanche une action (registerUser) -->
+                <form class="space-y-6" action="/auth/register" method="Post">
+                    <div>
+                    <label for="name"
+                        class="mb-2 text-slate-900 font-medium text-sm inline-block">Name</label>
+                    <input type="text" id="name" name="name" placeholder="name" required
+                        class="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" />
+                    </div>
+                    <div>
+                    <label for="email"
+                        class="mb-2 text-slate-900 font-medium text-sm inline-block">Email</label>
+                            
+                        <!--  input pour recuprer les données entrer -->
+                    <input type="email" id="email" name="email" placeholder="john@readymadeui.com" required
+                        class="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" />
+                    </div>
+                    <div>
+                    <label for="password"
+                        class="mb-2 text-slate-900 font-medium text-sm inline-block">Password</label>
+                        <!-- pour pasword -->
+                    <input type="password" id="password" name="password" placeholder="••••••••" required
+                        class="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" />
+                    </div>
+                    {{!-- <div class="mb-15">
+                    <label for="confirm-password"
+                        class="mb-2 text-slate-900 font-medium text-sm inline-block">Confirm
+                        password</label>
+                        <!-- pour confirme password -->
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="••••••••" required
+                        class="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" />
+                    </div> --}}
+
+                    
+                    <!-- type du boutton submit pour faire declencher l'action -->
+                    <button type="submit"
+                    class="w-full py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                    Update</button>
+                </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

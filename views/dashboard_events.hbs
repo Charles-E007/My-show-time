@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Dashboard-events</title>
+</head>
+<body>
+    <!--
+  TailBank - A modern dashboard for your banking or finance web application
+
+  Created by John Champ
+
+  Founder of Pixelcave      -> https://pixelcave.com
+  Building Tailkit          -> https://tailkit.com
+  Let's connect on X        -> https://x.com/pixelcave_john
+                on Bluesky  -> https://bsky.app/profile/pixelcave-john.bsky.social
+-->
+
+<div x-data="{ userDropdownOpen: false, mobileNavOpen: false }">
+  <!-- Page Container -->
+  <div
+    id="page-container"
+    class="mx-auto flex min-h-screen w-full min-w-[320px] flex-col bg-slate-50"
+  >
+    <!-- Page Header -->
+    <header id="page-header" class="z-1 flex flex-none items-center pt-5">
+      <div class="container mx-auto px-4 lg:px-8 xl:max-w-7xl">
+        <div
+          class="-mx-4 border-y border-slate-200 bg-white px-4 shadow-xs sm:rounded-lg sm:border lg:-mx-6 lg:px-6"
+        >
+          <div class="flex justify-between py-2.5 lg:py-3.5">
+            <!-- Left Section -->
+            <div class="flex items-center gap-2 lg:gap-6">
+              <!-- Logo -->
+              <a
+                href="/"
+                class="group inline-flex items-center gap-1.5 text-lg font-bold tracking-wide text-slate-900 hover:text-slate-600"
+              >
+                <!-- <svg
+                  class="hi-mini hi-banknotes inline-block size-5 -rotate-45 text-violet-600 transition group-hover:scale-110"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 4a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm12 4a3 3 0 11-6 0 3 3 0 016 0zM4 9a1 1 0 100-2 1 1 0 000 2zm13-1a1 1 0 11-2 0 1 1 0 012 0zM1.75 14.5a.75.75 0 000 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 00-1.5 0v.784a.272.272 0 01-.35.25A49.043 49.043 0 001.75 14.5z"
+                    clip-rule="evenodd"
+                  />
+                </svg> -->
+                <span>My<span class="font-normal">Show</span>Time</span>
+              </a>
+              <!-- END Logo -->
+
+              <!-- Desktop Navigation -->
+              <nav class="hidden items-center gap-1.5 lg:flex">
+                <a
+                  href="javascript:void(0)"
+                  class="group flex items-center gap-2 rounded-lg bg-violet-50 px-2.5 py-1.5 text-sm font-medium text-violet-600"
+                >
+                  <span>Events</span>
+                </a>
+                <a
+                  href="/admin/dashboard-users"
+                  class="group flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium text-slate-800 hover:bg-violet-50 hover:text-violet-600 active:border-violet-100"
+                >
+                  <span>Users</span>
+                </a>
+                <!-- <a
+                  href="javascript:void(0)"
+                  class="group flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium text-slate-800 hover:bg-violet-50 hover:text-violet-600 active:border-violet-100"
+                >
+                  <span>Cards</span>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  class="group flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium text-slate-800 hover:bg-violet-50 hover:text-violet-600 active:border-violet-100"
+                >
+                  <span>Settings</span>
+                </a> -->
+              </nav>
+              <!-- END Desktop Navigation -->
+            </div>
+            <!-- END Left Section -->
+
+            <!-- Right Section -->
+            <div class="flex items-center gap-2">
+              <!-- User Dropdown -->
+              <div class="relative inline-block">
+                <!-- Dropdown Toggle Button -->
+                <button x-on:click="userDropdownOpen = true"
+                  x-bind:aria-expanded="userDropdownOpen"
+                  type="button"
+                  id="tk-dropdown-layouts-user"
+                  class="inline-flex items-center justify-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm leading-5 font-semibold text-slate-800 hover:border-violet-300 hover:text-violet-800 active:border-slate-200"
+                  aria-haspopup="true">
+                  <svg class="hi-mini hi-user-circle inline-block size-5 sm:hidden"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true">
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <span class="hidden sm:inline">John Doe</span>
+                  <svg
+                    class="hi-mini hi-chevron-down hidden size-5 opacity-40 sm:inline-block"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <!-- END Dropdown Toggle Button -->
+
+                <!-- Dropdown -->
+                 <!-- j'ai mis cette div hidden apres il aura un event onclick -->
+                <div
+                  x-cloak
+                  x-show="userDropdownOpen"
+                  x-transition:enter="transition ease-out duration-100"
+                  x-transition:enter-start="opacity-0"
+                  x-transition:enter-end="opacity-100"
+                  x-transition:leave="transition ease-in duration-100"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                  x-on:click.outside="userDropdownOpen = false"
+                  role="menu"
+                  aria-labelledby="tk-dropdown-layouts-user"
+                  class="absolute end-0 z-10 mt-2 w-48 rounded-lg shadow-xl ltr:origin-top-right rtl:origin-top-left hidden options">
+                    <div class="divide-y divide-slate-100 rounded-lg bg-white ring-1 ring-black/5">
+                        <div class="space-y-1 p-2.5">
+                        <a
+                            role="menuitem"
+                            href="javascript:void(0)"
+                            class="group flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-sm font-medium text-slate-700 hover:bg-violet-50 hover:text-violet-800">
+                                <svg
+                                class="hi-mini hi-user-circle inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                >
+                                
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"
+                                        clip-rule="evenodd"/>
+                                </svg>
+                                <span class="grow">Account</span>
+                        </a>
+                        <a
+                            role="menuitem"
+                            href="javascript:void(0)"
+                            class="group flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-sm font-medium text-slate-700 hover:bg-violet-50 hover:text-violet-800"
+                        >
+                            <svg
+                            class="hi-mini hi-cog-6-tooth inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-hidden="true"
+                            >
+                            <path
+                                fill-rule="evenodd"
+                                d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                                clip-rule="evenodd"
+                            />
+                            </svg>
+                            <span class="grow">Settings</span>
+                        </a>
+                        </div>
+                        <div class="space-y-1 p-2.5">
+                        <form onsubmit="return false;">
+                            <button
+                            type="submit"
+                            role="menuitem"
+                            class="group flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-start text-sm font-medium text-slate-700 hover:bg-violet-50 hover:text-violet-800"
+                            >
+                            <svg
+                                class="hi-mini hi-lock-closed inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                fill-rule="evenodd"
+                                d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                                clip-rule="evenodd"
+                                />
+                            </svg>
+                            <span class="grow">Sign out</span>
+                            </button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Dropdown -->
+              </div>
+              <!-- END User Dropdown -->
+
+              <!-- Alerts -->
+              <a
+                href="javascript:void(0)"
+                class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm leading-5 font-semibold text-slate-800 hover:border-violet-300 hover:text-violet-800 active:border-slate-200"
+              >
+                <svg
+                  class="hi-outline hi-bell-alert inline-block size-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5"
+                  />
+                </svg>
+              </a>
+              <!-- END Alerts -->
+
+              <!-- Toggle Mobile Navigation -->
+              <div class="lg:hidden">
+                <button
+                  x-on:click="mobileNavOpen = !mobileNavOpen"
+                  type="button"
+                  class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm leading-5 font-semibold text-slate-800 hover:border-violet-300 hover:text-violet-800 active:border-slate-200"
+                >
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="hi-solid hi-menu inline-block size-5"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <!-- END Toggle Mobile Navigation -->
+            </div>
+            <!-- END Right Section -->
+          </div>
+
+          <!-- Mobile Navigation -->
+          <div x-cloak x-show="mobileNavOpen" class="lg:hidden">
+            <nav class="flex flex-col gap-2 border-t border-slate-200 py-4">
+              <a
+                href="javascript:void(0)"
+                class="group flex items-center gap-2 rounded-lg border border-violet-50 bg-violet-50 px-2.5 py-1.5 text-sm font-semibold text-violet-600"
+              >
+                <span>Dashboard</span>
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="group flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium text-slate-800 hover:bg-violet-50 hover:text-violet-600 active:border-violet-100"
+              >
+                <span>Accounts</span>
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="group flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium text-slate-800 hover:bg-violet-50 hover:text-violet-600 active:border-violet-100"
+              >
+                <span>Cards</span>
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="group flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium text-slate-800 hover:bg-violet-50 hover:text-violet-600 active:border-violet-100"
+              >
+                <span>Profile</span>
+              </a>
+            </nav>
+          </div>
+          <!-- END Mobile Navigation -->
+        </div>
+      </div>
+    </header>
+    <!-- END Page Header -->
+
+    <!-- Page Content -->
+    <main id="page-content" class="flex max-w-full flex-auto flex-col">
+      <!-- Page Heading -->
+      <div class="container mx-auto px-4 pt-6 lg:px-8 lg:pt-8 xl:max-w-7xl">
+        <div
+          class="flex flex-col gap-2 text-center sm:flex-row sm:items-center sm:justify-between sm:text-start"
+        >
+          <div class="grow">
+            <h1 class="mb-1 text-xl font-bold">Aperçu KPI </h1>
+            <h2 class="text-sm font-medium text-slate-500">
+              Welcome to the MyShowTime dashboard.
+            </h2>
+          </div>
+          
+        </div>
+        <hr class="mt-6 border-slate-200 lg:mt-8" />
+      </div>
+      <!-- END Page Heading -->
+
+      <!-- Page Section -->
+      <div class="container mx-auto p-4 lg:p-8 xl:max-w-7xl">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-8">
+          <!-- Quick Statistics -->
+          <a href="javascript:void(0)" class="flex flex-col rounded-lg border border-slate-200 bg-white hover:border-slate-300 active:border-violet-300">
+            <div class="flex grow items-center justify-between p-5">
+              <dl>
+                <dt class="text-2xl font-bold">{{usersCount}} <span class="font-semibold"></span> </dt>
+                <dd class="text-sm font-medium text-slate-500">
+                  Total Users
+                </dd>
+              </dl>
+              <!-- icon dollars -->
+              <div class="flex size-12 items-center justify-center rounded-xl border border-violet-100 bg-violet-50 text-violet-500">
+                <svg
+                  class="hi-outline hi-currency-dollar inline-block size-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <!-- fin icon dollar -->
+            </div>
+            <div class="border-t border-slate-100 px-5 py-3 text-xs font-medium text-slate-500">
+              <p>From all users</p>
+            </div>
+          </a>
+          <a href="javascript:void(0)" class="flex flex-col rounded-lg border border-slate-200 bg-white hover:border-slate-30 active:border-emerald-300">
+            <div class="flex grow items-center justify-between p-5">
+              <dl>
+                <dt class="text-2xl font-bold">{{eventsCount}}</dt>
+                <dd class="text-sm font-medium text-slate-500">nombre Events</dd>
+              </dl>
+              <div
+                class="flex size-12 items-center justify-center rounded-xl border border-emerald-100 bg-emerald-50 text-emerald-500">
+                <svg
+                  class="hi-outline hi-arrow-trending-up inline-block size-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              class="border-t border-slate-100 px-5 py-3 text-xs font-medium text-slate-500"
+            >
+              <!-- <p>This month</p> -->
+              <p>From all events</p>
+            </div>
+          </a>
+
+          <a href="javascript:void(0)"
+            class="flex flex-col rounded-lg border border-slate-200 bg-white hover:border-slate-300 active:border-rose-300">
+            <div class="flex grow items-center justify-between p-5">
+              <dl>
+                <dt class="text-2xl font-bold">4.720</dt>
+                <dd class="text-sm font-medium text-slate-500">Nombre de concert</dd>
+              </dl>
+              <div
+                class="flex size-12 items-center justify-center rounded-xl border border-rose-100 bg-rose-50 text-rose-500"
+              >
+                <svg
+                  class="hi-outline hi-arrow-trending-down inline-block size-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              class="border-t border-slate-100 px-5 py-3 text-xs font-medium text-slate-500"
+            >
+              <p>This month</p>
+            </div>
+          </a>
+
+          {{!-- <a href="javascript:void(0)"
+            class="flex flex-col rounded-lg border border-slate-200 bg-white hover:border-slate-300 active:border-rose-300">
+            <div class="flex grow items-center justify-between p-5">
+              <dl>
+                <dt class="text-2xl font-bold">4.720</dt>
+                <dd class="text-sm font-medium text-slate-500">Nombre de concert</dd>
+              </dl>
+              <div
+                class="flex size-12 items-center justify-center rounded-xl border border-rose-100 bg-rose-50 text-rose-500"
+              >
+                <svg
+                  class="hi-outline hi-arrow-trending-down inline-block size-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              class="border-t border-slate-100 px-5 py-3 text-xs font-medium text-slate-500"
+            >
+              <p>This month</p>
+            </div>
+          </a>
+
+          <a href="javascript:void(0)"
+            class="flex flex-col rounded-lg border border-slate-200 bg-white hover:border-slate-300 active:border-rose-300">
+            <div class="flex grow items-center justify-between p-5">
+              <dl>
+                <dt class="text-2xl font-bold">4.720</dt>
+                <dd class="text-sm font-medium text-slate-500">Nombre de concert</dd>
+              </dl>
+              <div
+                class="flex size-12 items-center justify-center rounded-xl border border-rose-100 bg-rose-50 text-rose-500"
+              >
+                <svg
+                  class="hi-outline hi-arrow-trending-down inline-block size-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              class="border-t border-slate-100 px-5 py-3 text-xs font-medium text-slate-500"
+            >
+              <p>This month</p>
+            </div>
+          </a> --}}
+          <!-- END Quick Statistics -->
+
+          <!-- Credit Cards -->
+          <!-- <a href="javascript:void(0)"
+            class="flex flex-col rounded-lg border border-slate-200 bg-white hover:border-slate-300 active:border-violet-300">
+            <div class="flex grow items-center justify-between p-5">
+              <dl>
+                <dt class="font-semibold">John Doe</dt>
+                <dd class="text-sm font-medium text-slate-500">
+                  **** **** **** 9877
+                </dd>
+              </dl>
+              <div
+                class="flex size-12 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 text-slate-500"
+              >
+                <svg
+                  class="inline-block text-[#1434cb] dark:text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xml:space="preserve"
+                  viewBox="0 0 3384.54 2077.85"
+                >
+                  <path
+                    fill="currentColor"
+                    d="m1461.26 739.84-251.37 599.74h-164l-123.7-478.62c-7.51-29.48-14.04-40.28-36.88-52.7-37.29-20.23-98.87-39.21-153.05-50.99l3.68-17.43h263.99c33.65 0 63.9 22.4 71.54 61.15l65.33 347.04 161.46-408.2h163zm642.58 403.93c.66-158.29-218.88-167.01-217.37-237.72.47-21.52 20.96-44.4 65.81-50.24 22.23-2.91 83.48-5.13 152.95 26.84l27.25-127.18c-37.33-13.55-85.36-26.59-145.12-26.59-153.35 0-261.27 81.52-262.18 198.25-.99 86.34 77.03 134.52 135.81 163.21 60.47 29.38 80.76 48.26 80.53 74.54-.43 40.23-48.23 57.99-92.9 58.69-77.98 1.2-123.23-21.1-159.3-37.87l-28.12 131.39c36.25 16.63 103.16 31.14 172.53 31.87 162.99 0 269.61-80.51 270.11-205.19m404.94 195.81h143.49l-125.25-599.74h-132.44c-29.78 0-54.9 17.34-66.02 44l-232.81 555.74h162.91L2291 1250h199.05l18.73 89.58zm-173.11-212.5 81.66-225.18 47 225.18h-128.66zm-652.74-387.24-128.29 599.74H1399.5l128.34-599.74h155.09z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div
+              class="border-t border-slate-100 px-5 py-3 text-xs font-medium text-slate-500"
+            >
+              <p>Exp. 10/27</p>
+            </div>
+          </a>
+          <a
+            href="javascript:void(0)"
+            class="flex flex-col rounded-lg border border-slate-200 bg-white hover:border-slate-300 active:border-violet-300"
+          >
+            <div class="flex grow items-center justify-between p-5">
+              <dl>
+                <dt class="font-semibold">John Doe</dt>
+                <dd class="text-sm font-medium text-slate-500">
+                  **** **** **** 2354
+                </dd>
+              </dl>
+              <div
+                class="flex size-12 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 text-slate-500"
+              >
+                <svg
+                  class="inline-block w-8"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xml:space="preserve"
+                  viewBox="0 0 999.2 776"
+                >
+                  <path
+                    d="M181.1 774.3v-51.5c0-19.7-12-32.6-32.6-32.6-10.3 0-21.5 3.4-29.2 14.6-6-9.4-14.6-14.6-27.5-14.6-8.6 0-17.2 2.6-24 12v-10.3h-18v82.4h18v-45.5c0-14.6 7.7-21.5 19.7-21.5s18 7.7 18 21.5v45.5h18v-45.5c0-14.6 8.6-21.5 19.7-21.5 12 0 18 7.7 18 21.5v45.5h19.9zm267-82.4h-29.2V667h-18v24.9h-16.3v16.3h16.3V746c0 18.9 7.7 30 28.3 30 7.7 0 16.3-2.6 22.3-6l-5.2-15.5c-5.2 3.4-11.2 4.3-15.5 4.3-8.6 0-12-5.2-12-13.7v-36.9H448v-16.3zm152.8-1.8c-10.3 0-17.2 5.2-21.5 12v-10.3h-18v82.4h18v-46.4c0-13.7 6-21.5 17.2-21.5 3.4 0 7.7.9 11.2 1.7l5.2-17.2c-3.6-.7-8.7-.7-12.1-.7zM370 698.7c-8.6-6-20.6-8.6-33.5-8.6-20.6 0-34.3 10.3-34.3 26.6 0 13.7 10.3 21.5 28.3 24l8.6.9c9.4 1.7 14.6 4.3 14.6 8.6 0 6-6.9 10.3-18.9 10.3-12 0-21.5-4.3-27.5-8.6l-8.6 13.7c9.4 6.9 22.3 10.3 35.2 10.3 24 0 37.8-11.2 37.8-26.6 0-14.6-11.2-22.3-28.3-24.9l-8.6-.9c-7.7-.9-13.7-2.6-13.7-7.7 0-6 6-9.4 15.5-9.4 10.3 0 20.6 4.3 25.8 6.9l7.6-14.6zm478.9-8.6c-10.3 0-17.2 5.2-21.5 12v-10.3h-18v82.4h18v-46.4c0-13.7 6-21.5 17.2-21.5 3.4 0 7.7.9 11.2 1.7l5.2-17c-3.5-.9-8.6-.9-12.1-.9zm-230 43c0 24.9 17.2 42.9 43.8 42.9 12 0 20.6-2.6 29.2-9.4l-8.6-14.6c-6.9 5.2-13.7 7.7-21.5 7.7-14.6 0-24.9-10.3-24.9-26.6 0-15.5 10.3-25.8 24.9-26.6 7.7 0 14.6 2.6 21.5 7.7l8.6-14.6c-8.6-6.9-17.2-9.4-29.2-9.4-26.6-.1-43.8 18-43.8 42.9zm166.5 0v-41.2h-18v10.3c-6-7.7-14.6-12-25.8-12-23.2 0-41.2 18-41.2 42.9s18 42.9 41.2 42.9c12 0 20.6-4.3 25.8-12v10.3h18v-41.2zm-66.1 0c0-14.6 9.4-26.6 24.9-26.6 14.6 0 24.9 11.2 24.9 26.6 0 14.6-10.3 26.6-24.9 26.6-15.4-.9-24.9-12.1-24.9-26.6zm-215.4-43c-24 0-41.2 17.2-41.2 42.9 0 25.8 17.2 42.9 42.1 42.9 12 0 24-3.4 33.5-11.2l-8.6-12.9c-6.9 5.2-15.5 8.6-24 8.6-11.2 0-22.3-5.2-24.9-19.7h60.9v-6.9c.8-26.5-14.7-43.7-37.8-43.7zm0 15.5c11.2 0 18.9 6.9 20.6 19.7h-42.9c1.7-11.1 9.4-19.7 22.3-19.7zm447.2 27.5v-73.8h-18v42.9c-6-7.7-14.6-12-25.8-12-23.2 0-41.2 18-41.2 42.9s18 42.9 41.2 42.9c12 0 20.6-4.3 25.8-12v10.3h18v-41.2zm-66.1 0c0-14.6 9.4-26.6 24.9-26.6 14.6 0 24.9 11.2 24.9 26.6 0 14.6-10.3 26.6-24.9 26.6-15.5-.9-24.9-12.1-24.9-26.6zm-602.6 0v-41.2h-18v10.3c-6-7.7-14.6-12-25.8-12-23.2 0-41.2 18-41.2 42.9s18 42.9 41.2 42.9c12 0 20.6-4.3 25.8-12v10.3h18v-41.2zm-66.9 0c0-14.6 9.4-26.6 24.9-26.6 14.6 0 24.9 11.2 24.9 26.6 0 14.6-10.3 26.6-24.9 26.6-15.5-.9-24.9-12.1-24.9-26.6z"
+                  />
+                  <path fill="#FF5A00" d="M364 66.1h270.4v485.8H364z" />
+                  <path
+                    fill="#EB001B"
+                    d="M382 309c0-98.7 46.4-186.3 117.6-242.9C447.2 24.9 381.1 0 309 0 138.2 0 0 138.2 0 309s138.2 309 309 309c72.1 0 138.2-24.9 190.6-66.1C428.3 496.1 382 407.7 382 309z"
+                  />
+                  <path
+                    fill="#F79E1B"
+                    d="M999.2 309c0 170.8-138.2 309-309 309-72.1 0-138.2-24.9-190.6-66.1 72.1-56.7 117.6-144.2 117.6-242.9S570.8 122.7 499.6 66.1C551.9 24.9 618 0 690.1 0 861 0 999.2 139.1 999.2 309z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              class="border-t border-slate-100 px-5 py-3 text-xs font-medium text-slate-500"
+            >
+              <p>Exp. 06/28</p>
+            </div>
+          </a>
+          <a
+            href="javascript:void(0)"
+            class="group flex items-center justify-center rounded-lg border-2 border-dashed border-slate-200 py-6 text-sm font-medium text-slate-600 hover:border-violet-300 hover:text-slate-900 active:border-slate-200"
+          >
+            <div class="flex items-center gap-1">
+              <svg
+                class="hi-mini hi-plus inline-block size-5 text-slate-500 group-hover:text-violet-600"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"
+                />
+              </svg>
+              <span>New Card</span>
+            </div>
+          </a> -->
+          <!-- END Credit Cards -->
+
+          <!-- Transactions -->
+          <div class="flex flex-col rounded-lg border border-slate-200 bg-white md:col-span-3">
+            <div class="flex flex-col items-center justify-between gap-4 border-b border-slate-100 p-5 text-center sm:flex-row sm:text-start">
+              <div>
+                <h2 class="mb-0.5 font-semibold">All Events</h2>
+                <h3 class="text-sm font-medium text-slate-600">
+                  All events in this plateforme
+                </h3>
+              </div>
+                    <a href="/admin/formAddEvent" class="inline-flex items-center justify-center gap-1 rounded-lg border border-green-700 bg-green-700 px-3 py-2 text-sm leading-5 font-semibold text-white hover:border-green-800 hover:bg-green-900 hover:text-white focus:ring-3 focus:ring-green-400/50 active:border-green-700 active:bg-green-700">
+                      <span>+ Add Event </span>
+                    </a>
+            </div>
+            <div class="p-5">
+              <!-- Responsive Table Container -->
+              <div class="min-w-full overflow-x-auto rounded-sm">
+                <!-- Alternate Responsive Table -->
+                <table class="min-w-full align-middle text-sm">
+                  <!-- Table Header -->
+                  <thead>
+                    <tr class="border-b-2 border-slate-100">
+                      <th
+                        class="min-w-[100px] py-3 pe-3 text-start text-sm font-semibold tracking-wider text-slate-700 uppercase"
+                      >
+                        Date
+                      </th>
+                      <th
+                        class="min-w-[50px] py-3 pe-3 text-start text-sm font-semibold tracking-wider text-slate-700 uppercase"
+                      >
+                        id
+                      </th>
+                      <th
+                        class="min-w-[100px] py-3 pe-3 text-start text-sm font-semibold tracking-wider text-slate-700 uppercase"
+                      >
+                        Titre
+                      </th>
+                      <th
+                        class="min-w-[180px] px-3 py-2 text-start text-sm font-semibold tracking-wider text-slate-700 uppercase"
+                      >
+                        Lieu
+                      </th>
+                      <th
+                        class="min-w-[180px] px-3 py-2 text-start text-sm font-semibold tracking-wider text-slate-700 uppercase"
+                      >
+                        Artiste
+                      </th>
+                      <th
+                        class="min-w-[180px] px-3 py-2 text-start text-sm font-semibold tracking-wider text-slate-700 uppercase"
+                      >
+                        Description
+                      </th>
+                      <th
+                        class="px-3 py-2 text-start text-sm font-semibold tracking-wider text-slate-700 uppercase"
+                      >
+                        date_event
+                      </th>
+                      <th
+                        class="min-w-[100px] py-2 ps-3 text-end text-sm font-semibold tracking-wider text-slate-700 uppercase"
+                      >
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <!-- END Table Header -->
+
+                  <!-- Table Body -->
+                  {{#each events}}
+                  <tbody>
+                    <tr class="border-b border-slate-100">
+                      <td class="py-3 pe-3 text-start text-slate-600">
+                        2023-08-30 08:00
+                      </td>
+                      <td class="py-3 pe-3 text-start text-slate-600">
+                        01
+                      </td>
+                      <td class="py-3 pe-3 text-start text-slate-600">
+                        {{this.title}}
+                      </td>
+                      <td class="p-3">
+                        <a href="javascript:void(0)" class="font-medium ">{{this.lieu}}</a>
+                      </td>
+                      <td class="p-3 font-medium text-slate-600">
+                        {{this.artist}}
+                      </td>
+                      <td class="p-3 text-start">{{this.descript}}</td>
+                      <td class="p-3 font-medium">
+                        <div
+                          class="inline-block  p-3 text-start"
+                        >
+                            {{this.date_event}}
+                        </div>
+                      </td>
+                      <td class="py-3 ps-3 text-end font-medium">
+                      <a href="javascript:void(0)" onclick="deleteEvent('{{this._id}}')" class="group inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 font-medium text-slate-800 hover:border-violet-300 hover:text-violet-800 active:border-slate-200">
+                              <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="w-6 h-6 text-red-400"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                              >
+                                  <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 
+                            4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                  />
+                              </svg> 
+                        </a>
+
+
+                        <a href="/admin/formEditEvent/{{this._id}}" class="group inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 font-medium text-slate-800 hover:border-violet-300 hover:text-violet-800 active:border-slate-200">
+                              <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 text-blue-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        />
+                    </svg>
+                        </a>
+                      </td>
+                    </tr>
+                    
+                  </tbody>
+                  {{/each}}
+
+                  <!-- END Table Body -->
+                </table>
+                <!-- END Alternate Responsive Table -->
+              </div>
+              <!-- END Responsive Table Container -->
+            </div>
+          </div>
+          <!-- END Transactions -->
+        </div>
+      </div>
+      <!-- END Page Section -->
+    </main>
+    <!-- END Page Content -->
+
+    <!-- Page Footer -->
+    <!-- <footer id="page-footer" class="flex flex-none items-center py-5"> -->
+
+
+
+
+
+
+      <footer class="px-6 md:px-16 lg:px-24 xl:px-32 pt-8 w-full text-gray-500">
+   
+      <p class="pt-4 text-center text-xs md:text-sm pb-5">
+          Copyright wecode 2026 © <a href="#">Code Breakers</a>. All Right Reserved.
+      </p>
+
+
+
+
+    </footer>
+    <!-- END Page Footer -->
+  </div>
+  <!-- END Page Container -->
+</div>
+</body>
+
+
+<script>
+
+async function deleteEvent(id) {
+    if (confirm('Voulez-vous vraiment supprimer cet événement ?')) {
+        await fetch(`/admin/dashboard-events/${id}`, { method: 'DELETE' });
+        window.location.reload();
+    }
+}
+
+</script>
+
+</html>

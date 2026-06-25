@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Document</title>
+</head>
+<body>
+       <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .marquee-inner {
+        animation: marqueeScroll 35s linear infinite;
+    }
+
+    @keyframes marqueeScroll {
+        0% {
+            transform: translateX(0%);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+</style>
+
+
+
+<header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+
+    <nav class="flex items-center justify-between p-4 border-b border-slate-200 md:px-16 lg:px-24 xl:px-32 w-full  ">
+        <a href="/">   
+            <h1 class="font-bold text-xl">MyShowTime</h1>
+            
+        </a>
+        <div id="menu" class="max-md:absolute max-md:top-0 max-md:z-10 max-md:left-0 max-md:w-0 max-md:transition-all max-md:duration-300 max-md:overflow-hidden max-md:h-full max-md:bg-white/50 max-md:backdrop-blur max-md:flex-col max-md:justify-center flex items-center gap-8 font-medium">
+            <a href="/" class="hover:text-gray-500">
+                Home
+            </a>
+            <a href="/#concert" class="relative group flex items-center gap-1 cursor-pointer">
+                <span>Evenement</span>
+                
+            </a>
+            <a href="/#about" class="hover:text-gray-500">About</a>
+
+            <button id="close-menu" class="md:hidden bg-gray-900 hover:bg-gray-800 text-white p-2 rounded-md aspect-square font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="flex items-center gap-4">
+            {{#if user}}
+                <span class="font-medium text-slate-900 uppercase">{{user.name}}</span>
+                <a href="/auth/logout" class="hidden md:block bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-medium transition">
+                    Déconnexion
+                </a>
+            {{else}}
+                <a href="/login" class="hidden mr-2 md:block bg-green-600 hover:bg-slate-900 text-white px-4 py-2 rounded-full font-medium transition">
+                    Sign in
+                </a>
+                <a href="/register" class="hidden md:block bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-full font-medium transition">
+                    Sign up
+                </a>
+            {{/if}}
+        </div>
+        <button id="open-menu"
+            class="md:hidden bg-gray-900 hover:bg-gray-800 text-white p-2 rounded-md aspect-square font-medium transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12h16" />
+                <path d="M4 18h16" />
+                <path d="M4 6h16" />
+            </svg>
+        </button>
+    </nav>
+</header>
+
+<main class="mt-17 tracking-tight">
+    <div class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex flex-wrap -mx-4">
+      <!-- Product Images -->
+     <div class="w-full md:w-1/2 px-4 mb-8">
+          {{#if event.imageUrl}}
+            <img src="/uploads/{{event.imageUrl}}" alt="{{event.title}}" class="w-full h-auto rounded-lg shadow-md mb-4" id="mainImage">
+          {{else}}
+            <img src="/uploads/events/Vice_City_04.jpg" class="w-full h-auto rounded-lg shadow-md mb-4" id="mainImage">
+          {{/if}}
+        </div>
+
+      <!-- Product Details -->
+      <div class="w-full md:w-1/2 px-4">
+        <h2 class="text-3xl font-bold text-slate-900 mb-2 uppercase tracking-tight">{{event.title}}</h2>
+       <hr class="mb-15 border border-slate-400">
+        
+        
+        <p class="text-gray-700 mb-6">{{event.descript}}
+        </p>
+
+
+
+
+
+        <div class="mb-4 flex flex-col">
+
+            <div>   
+                <span class="text-slate-800 text-2xl font-bold mr-2 capitalize">Date:</span>
+                <span class=" text-2xl font-normal mr-2">{{event.date_event}}</span>
+            </div>
+
+            <div>   
+                <span class="text-slate-800 text-2xl font-bold mr-2 capitalize">lieu:</span>
+                <span class="text-2xl font-normal mr-2">{{event.lieu}}</span>
+            </div>
+           
+            <div>
+                <span class="text-slate-800 text-2xl font-bold mr-2  capitalize">Tarifs:</span>
+                <span class="text-2xl font-normal mr-2">{{event.price}}</span> <span class="text-2xl font-normal mr-2">FCFA</span>
+
+            </div>
+          
+            
+        </div>
+        
+
+        
+
+
+
+       
+
+        <div class="flex space-x-4 mb-6">
+            <button id="reserveBtn" data-event-id="{{event._id}}" class="bg-green-600 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-green-900 transition">
+                Réserver
+            </button>
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+</main>
+
+
+<footer class="px-6 md:px-16 lg:px-24 xl:px-32 pt-8 w-full text-gray-500">
+    <div class="flex flex-col md:flex-row justify-between w-full gap-10 border-b border-gray-500/30 pb-6">
+        <div class="md:max-w-96">
+          <h1 class="font-bold text-xl">MyShowTime</h1>
+            <p class="mt-6 text-sm">
+                simplifie l'organisation d'événements grâce à
+                une solution complète et intuitive. 
+                Notre plateforme permet aux public de 
+                reserver facilement les evenements.
+            </p>
+        </div>
+        <div class="flex-1 flex items-start md:justify-end gap-20">
+            <div>
+                <h2 class="font-semibold mb-5 text-gray-800">MyShowTime</h2>
+                <ul class="text-sm space-y-2">
+                    <li><a href="#">Home</a></li>
+                    <!-- <li><a href="#">About us</a></li> -->Sat 6 Jun 2026 | 16h00 GMT
+
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Privacy policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="font-semibold mb-5 text-gray-800">Get in touch</h2>
+                <div class="text-sm space-y-2">
+                    <p>+225-07-05-44-25-96</p>
+                    <p>myshowtime@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="pt-4 text-center text-xs md:text-sm pb-5">
+        Copyright wecode 2026 © <a href="#">Code Breakers</a>. All Right Reserved.
+    </p>
+</footer>
+
+</body>
+</html>
+  <script>
+    function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+        }
+
+
+    const reserveBtn = document.getElementById('reserveBtn');
+
+    const loggedInUserId = "{{user._id}}";
+
+    reserveBtn.addEventListener('click', async () => {
+        if (!loggedInUserId || loggedInUserId === "") {
+            alert("Mon fils, tu dois être connecter pour réserver un wé.");
+            window.location.href = "/login";
+            return;
+        }
+
+        const eventId = reserveBtn.getAttribute('data-event-id');
+
+        try {
+            reserveBtn.disabled = true;
+            reserveBtn.innerText = "Réservation en cours fils";
+
+            const response = await fetch('/reservations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    event: eventId,
+                    user: loggedInUserId
+                }),
+            });
+
+            if (response.ok) {
+                const newReservation = await response.json();
+                alert("C'est zoo mon fils ! Ta réservation est confirmée.");
+
+                window.location.href = "/reservations/" + newReservation._id + "/view"; 
+            } else {
+                const errorData = await response.json();
+                alert("Erreur : Tu as déjà reservé, tu fais exprès oubien");
+            }
+        } catch (err) {
+            alert("Erreur réseau. Faut souscrire moov folie tu vas re-essayer.");
+        } finally {
+            reserveBtn.disabled = false;
+            reserveBtn.innerText = "Déja réserver bro !";
+        }
+    });
+
+
+
+  </script>
